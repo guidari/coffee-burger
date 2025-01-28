@@ -35,15 +35,12 @@ export default function SelectedCoffee({
   const [messageAlert, setMessageAlert] = useState("");
   const [visibleAlert, setVisibleAlert] = useState(false);
 
-  console.log({ count });
-
   const { removeCoffee, insertMoreCoffee } = useContext(ShoppingCartContext);
 
   const coffeePrice = price * count;
 
   function handleChangeProductUnity(countOfProduct: number) {
     const newCount = countOfProduct;
-    console.log({ newCount });
 
     if (newCount <= 0 || newCount >= 100) {
       return;
@@ -63,7 +60,6 @@ export default function SelectedCoffee({
       }, 3000);
       return;
     }
-    console.log("id", id, "count", count, "newCount", newCount);
 
     insertMoreCoffee(id, count, 1);
     setCount(newCount);
@@ -82,7 +78,6 @@ export default function SelectedCoffee({
       return;
     }
 
-    console.log("id", id, "count", count, "newCount", newCount);
     insertMoreCoffee(id, count, -1);
     setCount(newCount);
   }

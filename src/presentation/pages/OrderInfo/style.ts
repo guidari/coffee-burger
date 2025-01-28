@@ -27,6 +27,13 @@ export const LeftContainer = styled.div`
     line-height: 130%;
     color: ${(props) => props.theme["base-subtitle"]};
   }
+
+  h3 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 200%;
+    color: ${(props) => props.theme["base-subtitle"]};
+  }
 `;
 
 export const SummaryContainer = styled.div`

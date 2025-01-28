@@ -26,7 +26,6 @@ export function addNewCuisineAction(cuisine: ICuisineCart) {
 }
 
 export function removeCoffeeAction(id: string) {
-  console.log({ id });
   return {
     type: "REMOVE_COFFEE",
     payload: {

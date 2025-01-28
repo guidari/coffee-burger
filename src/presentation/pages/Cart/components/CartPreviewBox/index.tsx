@@ -15,7 +15,6 @@ import { formatToBRCashString } from "../../../../../utils/formatCashString";
 
 export default function CartPreview() {
   const { cart } = useContext(ShoppingCartContext);
-  console.log({ cart });
 
   let totalPrice = 3.5;
   let totalPriceNoShipping = 0;

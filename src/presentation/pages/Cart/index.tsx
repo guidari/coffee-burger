@@ -27,6 +27,7 @@ export type AdressFormData = zod.infer<typeof adressFormValidation>;
 
 export default function Cart({ order, payment }: any) {
   const [visibleAlert, setVisibleAlert] = useState(false);
+  const [cartData, setCartData] = useState();
 
   const { cart } = useContext(ShoppingCartContext);
 
@@ -44,51 +45,6 @@ export default function Cart({ order, payment }: any) {
     localStorage.setItem("coffeeDelivery-city", values.city);
     localStorage.setItem("coffeeDelivery-uf", values.uf);
 
-    const paymentOption = localStorage.getItem("coffeeDelivery-cardType");
-
-    // Just to test if the post is working as expected
-    const orderParams = {
-      items: [
-        {
-          title: "DARK",
-          value: 24,
-        },
-      ],
-      paymentOption: paymentOption,
-    };
-
-    // try {
-    //   const response = await order.order(orderParams);
-    //   console.log({ response }); // Error 401 Unauthorized
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    const config = {
-      headers: { Authorization: `Bearer` },
-    };
-
-    axios
-      .post(
-        "https://burgerlivery-api.vercel.app/order/create-order",
-        {
-          items: [
-            {
-              title: "DARK",
-              value: 24,
-            },
-          ],
-          paymentOption: paymentOption,
-        },
-        config
-      )
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
     if (cart.length === 0) {
       setVisibleAlert(true);
       setTimeout(() => {
@@ -97,7 +53,29 @@ export default function Cart({ order, payment }: any) {
 
       return;
     }
-    navigate("/orderInfo");
+
+    const paymentOption = localStorage.getItem("coffeeDelivery-cardType");
+
+    const config = {
+      headers: { Authorization: `Bearer` },
+    };
+
+    await axios
+      .post(
+        "https://burgerlivery-api.vercel.app/order/create-order",
+        {
+          items: cart,
+          paymentOption: paymentOption,
+        },
+        config
+      )
+      .then(function (response) {
+        console.log(response);
+        navigate("/orderInfo", { state: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (

@@ -10,7 +10,7 @@ import LocationDelivery from "../../assets/images/locationDelivery.svg";
 import Timer from "../../assets/images/timer.svg";
 import MoneyDelivery from "../../assets/images/moneyDelivery.svg";
 import BikeDelivery from "../../assets/images/bikeDelivery.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MakeStorageAdapter } from "../../../main/factories/cache";
 import { User } from "../Home";
 import { useEffect } from "react";
@@ -24,6 +24,9 @@ export default function OrderInfo() {
   const uf = localStorage.getItem("coffeeDelivery-uf");
 
   const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const { message, orderNumber, details } = state;
 
   const user: User = MakeStorageAdapter().get("account");
 
@@ -36,8 +39,9 @@ export default function OrderInfo() {
   return (
     <OrderInfoContainer>
       <LeftContainer>
-        <h1>Uhu! Pedido confirmado</h1>
+        <h1>Uhu! {message}</h1>
         <h2>Agora é só aguardar que seu pedido chegará até você</h2>
+        <h3>Seu número de pedido é #{orderNumber}</h3>
 
         <SummaryContainer>
           <TextContainer>
@@ -78,11 +82,11 @@ export default function OrderInfo() {
             <div>
               <p>Pagamento na entrega</p>
               <span>
-                {cardTye === "Cartão de crédito"
+                {details.paymentOption === "Cartão de crédito"
                   ? "Cartão de crédito"
-                  : cardTye === "Cartão de débito"
+                  : details.paymentOption === "Cartão de débito"
                   ? "Cartão de débito"
-                  : cardTye === "Vale refeição"
+                  : details.paymentOption === "Vale refeição"
                   ? "Vale refeição"
                   : "PIX"}
               </span>

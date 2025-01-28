@@ -39,8 +39,6 @@ export default function Login({ authentication, currentAccount }: Props) {
       navigate("/");
     } catch (error) {
       console.error(error);
-    } finally {
-      console.log("finally");
     }
   };
 

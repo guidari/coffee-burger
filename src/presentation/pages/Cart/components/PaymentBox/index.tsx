@@ -34,6 +34,7 @@ export default function PaymentBox({ payment }: any) {
   };
 
   useEffect(() => {
+    localStorage.setItem("coffeeDelivery-cardType", "Cartão de crédito");
     getPayment();
   }, []);
 
