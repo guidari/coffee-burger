@@ -3,3 +3,7 @@ export type PaymentModel = {
   value: number;
   text: string;
 };
+
+export type PaymentParams = {
+  id: string;
+};
